@@ -1,0 +1,169 @@
+<!--
+	Name: Joan Montas
+	Email: Joan_Montas@student.uml.edu
+	File: index.html
+	GUI Assignment: GUI, HW5:  Implementing a Bit of Scrabble with Drag-and-Drop
+	Date:06/29/2023
+	Description: Implementing a Bit of Scrabble with Drag-and-Drop.
+    Implemented using some basic bootstrap functionality.
+	Copyright (c) 2023 by Joan Montas. All rights reserved.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- jquery ui -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css">
+    <!-- mine -->
+    <link href="./css/style.css" rel="stylesheet">
+
+    <title>Scribble</title>
+</head>
+<body>
+
+    <div class="container">
+        <!-- toast and alert widgets to inform the user -->
+        <div>
+            <div id="toastwordvalidity" class="toast" data-bs-delay="1000">
+                <div id="toastwordvaliditybody" class="toast-body">
+                </div>
+            </div>
+            <div id="endofgame" class="alert alert-primary" role="alert">
+                <p>GAME OVER</p>
+                <p>All tiles submitted</p>
+                <div> Total Score: <p id="scoreend">0</p></div>
+                <button onclick="acknowledgeendofgame()">Acknowledge</button>
+              </div>
+        </div>
+
+        <!-- Each dropabble square is defined as a div.
+            The dragable components will be placed in its body.-->
+        <div id="onelinescrableboard">
+            <div id="onelinescrableboards" class="row">
+                <div id="tab0" class ="onelinescrableboardtab">
+                </div>
+                <div id="tab1" class="onelinescrableboardtab">
+                </div>
+                <div id="tab2" class="onelinescrableboardtab">
+                </div>
+                <div id="tab3" class="onelinescrableboardtab">
+                </div>
+                <div id="tab4" class="onelinescrableboardtab">
+                </div>
+                <div id="tab5" class ="onelinescrableboardtab">
+                </div>
+                <div id="tab6" class="onelinescrableboardtab">
+                </div>
+                <div id="tab7" class="onelinescrableboardtab">
+                </div>
+                <div id="tab8" class="onelinescrableboardtab">
+                </div>
+                <div id="tab9" class="onelinescrableboardtab">
+                </div>
+                <div id="taba" class ="onelinescrableboardtab">
+                </div>
+                <div id="tabb" class="onelinescrableboardtab">
+                </div>
+                <div id="tabc" class="onelinescrableboardtab">
+                </div>
+                <div id="tabd" class="onelinescrableboardtab">
+                </div>
+                <div id="tabe" class="onelinescrableboardtab">
+                </div>
+            </div> <!-- row -->
+        </div> <!-- onelinescrableboard -->
+
+        <div class="contianer">
+            <div class="row">
+                <!--The droppable tiles will be placed in the div racksrow
+                as the user makes a play-->
+                <div id="rack">
+                    <div id="racksrow" class="row">
+                    </div> <!-- row -->
+                </div> <!-- rack -->
+                <!--Apart from dragging and dropping, user can interact
+                    with reset or submit. They each have their respective
+                    function bound.
+                -->
+                <div id="buttondivs">
+                    <button type="button" onclick="resetscrabble()">Restart!</button>
+                    <button type="button" onclick="submitscrabble()">submit</button>
+                </div>
+                <div id="stats">
+                    <div> Score: <p id="score">0</p></div>
+                    <div> Word: <p id="word">0</p></div>
+                </div>
+                <!-- Letter distribution are shown as a 3x9 table. Their values will
+                be dynamically calculated as the user plays-->
+                <p id="whatdroppedwhere"></p>
+                <div id="distri">
+                    <p> Letter Distribution</p>
+                    <table>
+                        <tr>
+                            <th> <p>A-0 </p> </th>
+                            <th> <p>J-0 </p> </th>
+                            <th> <p>S-0 </p> </th>
+                        </tr>
+                        <tr>
+                            <th> <p>B-0 </p> </th>
+                            <th> <p>K-0 </p> </th>
+                            <th> <p>T-0 </p> </th>
+                        </tr>
+                        <tr>
+                            <th> <p>C-0 </p> </th>
+                            <th> <p>L-0 </p> </th>
+                            <th> <p>U-0 </p> </th>
+                        </tr>
+                        <tr>
+                            <th> <p>D-0 </p> </th>
+                            <th> <p>M-0 </p> </th>
+                            <th> <p>V-0 </p> </th>
+                        </tr>
+                        <tr>
+                            <th> <p>E-0 </p> </th>
+                            <th> <p>N-0 </p> </th>
+                            <th> <p>W-0 </p> </th>
+                        </tr>
+                        <tr>
+                            <th> <p>F-0 </p> </th>
+                            <th> <p>O-0 </p> </th>
+                            <th> <p>X-0 </p> </th>
+                        </tr>
+                        <tr>
+                            <th> <p>G-0 </p> </th>
+                            <th> <p>P-0 </p> </th>
+                            <th> <p>Y-0 </p> </th>
+                        </tr>
+                        <tr>
+                            <th> <p>H-0 </p> </th>
+                            <th> <p>Q-0 </p> </th>
+                            <th> <p>Z-0 </p> </th>
+                        </tr>
+                        <tr>
+                            <th> <p>I-0 </p> </th>
+                            <th> <p>R-0 </p> </th>
+                            <th> <p></p> </th>
+                        </tr>
+                    </table>
+                    <p>BLANK-0</p>
+                </div>
+            </div>
+        </div>
+    </div> <!-- container -->
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <!-- jquery ui -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/es-module-shims@1/dist/es-module-shims.min.js" crossorigin="anonymous"></script>
+    <!-- mine -->
+    <script src="./js/scrable.js"></script>
+</body>
+</html>
